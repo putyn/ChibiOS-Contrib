@@ -31,6 +31,22 @@
 /* Unsupported modes and specific modes                                      */
 /*===========================================================================*/
 
+#undef PAL_MODE_RESET
+#undef PAL_MODE_UNCONNECTED
+#undef PAL_MODE_INPUT
+#undef PAL_MODE_INPUT_PULLUP
+#undef PAL_MODE_INPUT_PULLDOWN
+#undef PAL_MODE_INPUT_ANALOG
+#undef PAL_MODE_OUTPUT_PUSHPULL
+#undef PAL_MODE_OUTPUT_OPENDRAIN
+
+#define PAL_MODE_INPUT              (MODE_DIR_IN | MODE_AD_DIGITAL)
+#define PAL_MODE_INPUT_PULLUP       (MODE_DIR_IN | MODE_AD_DIGITAL | MODE_MODE_PULL_UP)
+#define PAL_MODE_INPUT_PULLDOWN     (MODE_DIR_IN | MODE_AD_DIGITAL | MODE_MODE_PULL_DOWN)
+#define PAL_MODE_INPUT_ANALOG       (MODE_DIR_IN | MODE_AD_ANALOG)
+#define PAL_MODE_OUTPUT_PUSHPULL    (MODE_DIR_OUT)
+#define PAL_MODE_OUTPUT_OPENDRAIN   (MODE_DIR_OUT | MODE_OD_ENABLE)
+
 /* Specifies palInit() without parameter, required until all platforms will
    be updated to the new style.*/
 #define PAL_NEW_INIT
@@ -217,9 +233,7 @@ typedef uint32_t iopadid_t;
  * @notapi
  */
 #define pal_lld_writeport(port, bits)                                       \
-  do {                                                                      \
-    (LPC_GPIO->PIN[LPC_IOPORT_NUM(port)]) = bits;                           \
-  } while (false)
+    (LPC_GPIO->PIN[LPC_IOPORT_NUM(port)]) = bits
 
 /**
  * @brief   Pads group mode setup.
@@ -249,10 +263,7 @@ typedef uint32_t iopadid_t;
  * @notapi
  */
 #define pal_lld_setport(port, bits)                                         \
-  do {                                                                      \
-    (LPC_GPIO->SET[LPC_IOPORT_NUM(port)]) = bits;                           \
-  } while (false)
-
+    (LPC_GPIO->SET[LPC_IOPORT_NUM(port)]) = bits
 
 /**
  * @brief   Clears a bits mask on a I/O port.
@@ -266,10 +277,7 @@ typedef uint32_t iopadid_t;
  * @notapi
  */
 #define pal_lld_clearport(port, bits)                                       \
-  do {                                                                      \
-    (LPC_GPIO->CLR[LPC_IOPORT_NUM(port)]) = bits;                           \
-  } while (false)
-
+    (LPC_GPIO->CLR[LPC_IOPORT_NUM(port)]) = bits
 
 /**
  * @brief   Toggles a bits mask on a I/O port.
@@ -283,9 +291,7 @@ typedef uint32_t iopadid_t;
  * @notapi
  */
 #define pal_lld_toggleport(port, bits)                                      \
-  do {                                                                      \
-    (LPC_GPIO->NOT[LPC_IOPORT_NUM(port)]) = bits;                           \
-  } while (false)
+    (LPC_GPIO->NOT[LPC_IOPORT_NUM(port)]) = bits
 
 /**
  * @brief   Reads a logical state from an I/O pad.
@@ -320,10 +326,7 @@ typedef uint32_t iopadid_t;
  * @notapi
  */
 #define pal_lld_writepad(port, pad, bit)                                    \
-  do {                                                                      \
-    (LPC_GPIO->B[(PAL_IOPORTS_WIDTH * LPC_IOPORT_NUM(port)) + pad]) = bit;  \                                                              \
-  } while (false)
-
+    (LPC_GPIO->B[(PAL_IOPORTS_WIDTH * LPC_IOPORT_NUM(port)) + pad]) = bit                                                              \
 
 /**
  * @brief   Pad mode setup.
