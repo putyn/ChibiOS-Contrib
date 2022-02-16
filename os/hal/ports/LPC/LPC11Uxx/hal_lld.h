@@ -35,7 +35,17 @@
  * @name    Platform identification macros
  * @{
  */
-#define PLATFORM_NAME           "LPC"
+#if defined(LPC11U1x) || defined(__DOXYGEN__)
+#   define PLATFORM_NAME           "LPC11U1x 32kB flash, 6kB SRAM"
+#elif defined(LPC11U2x)
+#   define PLATFORM_NAME           "LPC11U2x 32kB flash, 10kB SRAM, 4kB EEPROM"
+#elif defined(LPC11U3x)
+#   define PLATFORM_NAME           "LPC11U3x 128kB flash, 12kB SRAM, 4kB EEPROM"
+#elif defined(LPC11U6x)
+#   define PLATFORM_NAME           "LPC11U6x 256kB flash, 36kB SRAM, 4kB EEPROM"
+#else
+#   error "LPC11Uxx device unsupported or not specified"
+#endif
 /** @} */
 
 
@@ -53,9 +63,8 @@
 /*
  * Configuration-related checks.
  */
-#if !defined(LPC11Uxx_MCUCONF) && !defined(LPC11U35_MCUCONF) && \
-    !defined(LPC11U35_401_MCUCONF)
-    #error "Using a wrong mcuconf.h file, LPC11Uxx_MCUCONF not defined"
+#if !defined(LPC11Uxx_MCUCONF)
+#error "Using a wrong mcuconf.h file, LPC11Uxx_MCUCONF not defined"
 #endif
 
 #if defined(LPC_USE_SYSOSC) && LPC_USE_SYSOSC != FALSE && !defined(LPC_SYSOSC_FREQUENCY)

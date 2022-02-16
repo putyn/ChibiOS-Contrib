@@ -28,9 +28,12 @@
 /**
  * @brief   Sub-family identifier.
  */
-#if defined(LPC11U35) || \
-defined(__DOXYGEN__)
-    #define LPC11Uxx
+#if defined(LPC11U1x) || \
+    defined(LPC11U2x) || \
+    defined(LPC11U3x) || \
+    defined(LPC11U6x) || \
+    defined(__DOXYGEN__)
+#define LPC11Uxx
 #else
 #error unknown/unsupported LPC11Uxx microcontroller
 #endif
